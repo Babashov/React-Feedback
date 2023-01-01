@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+} from "react-router-dom";
+
+import AboutIconLink from "./AboutIconLink";
+import AboutPage from "./Pages/AboutPage";
+import {FeedbackProvider} from "./Context/FeedbackContext";
+import Header from "./Header";
+import FeedbackForm from "./FeedbackForm";
+import FeedbackStats from "./FeedbackStats";
+import FeedbackList from "./FeedbackList";
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FeedbackProvider>
+      <Router>
+        <Header bgColor={"red"} textColor={"white"} />
+        <div className="container">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <FeedbackForm />
+                  <FeedbackStats/>
+                  <FeedbackList/>
+                </>
+              }
+            />
+
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </div>
+
+        <AboutIconLink />
+      </Router>
+    </FeedbackProvider>
   );
 }
 
